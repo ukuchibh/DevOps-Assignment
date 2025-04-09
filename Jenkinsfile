@@ -5,7 +5,7 @@ pipeline {
         stage("Build") {
             steps {
                 sh "distrobox enter pw -- npm ci"
-                sh "distrobox enter pw -- npm build"                    
+                sh "distrobox enter pw -- npm run build"                    
             }
         }
 
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh "mkdir -p ~/.ssh"
                 sh "ssh-keyscan 157.245.150.85 >> ~/.ssh/known_hosts"
-                sh "rsync -avz ./dist ci@157.245.150.85:/var/www/html --progress"
+                sh "rsync -avzd ./build/ root@157.245.150.85:/srv/html/ --progress"
             }
         }
     }
