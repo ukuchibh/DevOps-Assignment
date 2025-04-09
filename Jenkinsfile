@@ -4,15 +4,15 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                sh "npm ci"
-                sh "npm build"                    
+                sh "distrobox enter pw -- npm ci"
+                sh "distrobox enter pw -- npm build"                    
             }
         }
 
         stage("Test") {
             steps {
                 wrap([$class: "Xvfb", debug: true, autoDisplayName: true]) {
-                    sh "npm test"
+                    sh "distrobox enter pw -- npm test"
                 }
             }
         }
